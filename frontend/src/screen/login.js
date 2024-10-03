@@ -4,7 +4,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 
-const LoginScreen = () => {
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -36,7 +36,7 @@ const LoginScreen = () => {
                     type="email"
                     placeholder="Enter email"
                     value={email}
-                    onChange={(e) => setEmail(e.currentTarget.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     ></Form.Control>
                 </Form.Group>
 
@@ -46,11 +46,23 @@ const LoginScreen = () => {
                      type="password"
                      placeholder="Enter Password"
                      value={password}
-                     onChange={(e) => setPassword(e.currentTarget.value)}
+                     onChange={(e) => setPassword(e.target.value)}
                      ></Form.Control>
                 </Form.Group>
+
+                <Button type='submit' variant="primary" className="mt-2">
+                    Sign In
+                </Button> 
             </Form>
+
+            <Row className="py-3">
+                <Col>
+                    New Customer? <Link to={ redirect ? `/signup?redirect=${redirect}` : '/signup'}>Sign Up</Link>
+                </Col>
+            </Row>
         </FormContainer>
     )
 
 }
+
+export default Login;

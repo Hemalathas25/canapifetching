@@ -1,0 +1,15 @@
+{
+  "name": "testing",
+  "version": "2.0.0",
+  "description": "User application build with the MERN stack",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "author": "Hema",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
+import { Link,  useLocation, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from '../component/Loader.js';
+import FormContainer from '../component/Form.jsx';
+import { useLoginMutation } from "../slice/userApi";
+import { setCredentials } from "../slice/auth";
 import { toast } from 'react-toastify';
 
 const Login = () => {
@@ -11,18 +15,28 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const [login, { isLoading }] = useLoginMutation();
+
+    const { userInfo } = useSelector((state) => state.auth);
+
+    const { search } = useLocation();
+    const sp = new URLSearchParams(search);
+    const redirect = sp.get('redirect') || '/';
+
     useEffect(() => {
         if (userInfo){
-            navigate(redirect);
+          navigate(redirect);
         }
     }, [userInfo, redirect, navigate]);
 
     const submitHandler = async (e) => {
         e.preventDefault()
         try {
-            
-        } catch (error) {
-            
+            const res = await login({ email, password }).unwrap();
+            dispatch(setCredentials({...res, }));
+            navigate(redirect);
+        } catch (err) {
+            toast.error(err?.data?.message || err.error);
         }
     }
 
@@ -53,6 +67,8 @@ const Login = () => {
                 <Button type='submit' variant="primary" className="mt-2">
                     Sign In
                 </Button> 
+
+                { isLoading && <Loader />}
             </Form>
 
             <Row className="py-3">

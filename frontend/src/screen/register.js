@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate} from 'react-router-dom';
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import FormContainer from "../component/Form.jsx";
+import Loader from "../component/Loader.jsx";
+import { useRegisterMutation } from "../slice/userApi.js";
 import  { setCredentials } from "../slice/auth";
 import { toast } from 'react-toastify';
 
@@ -14,7 +17,7 @@ const RegisterScreen = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    //const[register, { isLoading }] = useRegisterMutation();
+    const[register, { isLoading }] = useRegisterMutation();
 
     const { userInfo } = useSelector((state) => state.auth);
 
@@ -66,7 +69,7 @@ const RegisterScreen = () => {
                     type="text"
                     placeholder="Enter email"
                     value={email}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     ></Form.Control>
                 </Form.Group>
 
@@ -93,6 +96,8 @@ const RegisterScreen = () => {
                 <Button type='submit' variant="primary" className="mt-2" disabled={ isLoading }>
                     Sign Up
                 </Button>
+
+                { isLoading && <Loader />}
 
             </Form>
 

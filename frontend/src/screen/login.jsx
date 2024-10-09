@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { Link,  useLocation, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from '../component/Loader.js';
+import Loader from '../component/Loader.jsx';
 import FormContainer from '../component/Form.jsx';
-import { useLoginMutation } from "../slice/userApi";
-import { setCredentials } from "../slice/auth";
+import { useLoginMutation } from "../slices/userApiSlice.js";
+import { setCredentials } from "../slices/authSlice.js";
 import { toast } from 'react-toastify';
 
 const Login = () => {
